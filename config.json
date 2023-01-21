@@ -1,0 +1,14 @@
+{
+    "token": "",
+    "prefix": "!",
+
+
+    "thumbImage": "https://media.discordapp.net/attachments/1057078822375264349/1066034808523866223/WoWqWgf5J4U.png",
+    "footerText": "MineServ.top | Rewards",
+
+    "RCon": {
+        "IP":"",
+        "Port":"",
+        "Password":""
+    }
+}
