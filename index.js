@@ -9,6 +9,9 @@ var SHA256 = require("crypto-js/sha256")
 const { Client,GatewayIntentBits} = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.MessageContent,GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.GuildMembers,GatewayIntentBits.GuildIntegrations]})
 client.config = config
+client.db0 = require("qjson-db")
+const qjson = require('qjson-db')
+client.db = new qjson('./data/DB.json')
 //==================-SERVER-==================
 server.createServer((req,res)=>{
     let buf = ''
