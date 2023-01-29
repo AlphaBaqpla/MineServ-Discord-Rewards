@@ -7,4 +7,4 @@ MineServ Discord Rewards - это хороший способ наградить
 Функционал данного бота со временем будет только расширяться и будут добавляться новые способы наградить игроков внутри вашего Discord сервера.
 
 Для использования вам нужно зарегистрировать приложение в Discord Developer Portal [ТЫК](https://discord.com/developers/applications)
-[](./assets/Screenshot_1.png)
+<img src ="./assets/Screenshot_1.png">
