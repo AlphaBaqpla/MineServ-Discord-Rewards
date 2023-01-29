@@ -16,7 +16,7 @@ function unlink(msg){
     else{
     }
 }
-function wlhelp(r, msg){
+function help(msg){
     const embed = new MessageEmbed()
     .setColor('#00ffe1')
     .setAuthor({
@@ -46,6 +46,11 @@ var comms_list = [
   name: "unlink",
   out: unlink,
   about: "отвязать ник в Minecraft от аккаунта Discord"
+},
+{
+  name: "help",
+  out: help,
+  about: "помощь по командам бота"
 }];
 
 module.exports.comms = comms_list
