@@ -5,6 +5,22 @@ const prefix = conf.prefix
 function link(client,msg){
     const arggs = msg.content.split(' ').slice(1)
     const nickname = arggs.join(' ')
+    for(i in client.db.JSON()){
+        if(client.db.get(i) == nickname){
+            const embed = new EmbedBuilder()
+            .setColor('#00bd6d')
+            .setAuthor({
+                name: 'MineServ Rewards'
+            })
+            .setDescription('**Данный ник уже привязан к аккаунту <@'+i+'>!**')
+            .setFooter({
+                text: conf.footerText
+            })
+            return msg.channel.send({
+                embeds: [embed]
+            })
+        }
+    }
     if (!nickname){
         const embed = new EmbedBuilder()
         .setColor('#00bd6d')
@@ -15,10 +31,8 @@ function link(client,msg){
         .setFooter({
             text: conf.footerText
         })
-
         return msg.channel.send({
-            embeds: [embed],
-            ephemeral: true
+            embeds: [embed]
         })
     }
     else{
@@ -34,8 +48,7 @@ function link(client,msg){
             })
             
             msg.channel.send({
-                embeds: [embed],
-                ephemeral: true
+                embeds: [embed]
             })
         }
         else{
@@ -48,48 +61,75 @@ function link(client,msg){
             .setFooter({
                 text: conf.footerText
             })
-
             client.db.set(msg.author.id,nickname)
-
             msg.channel.send({
-                embeds: [embed],
-                ephemeral: true
+                embeds: [embed]
             })
         }
     }
 }
 function unlink(client,msg){
-    const arggs = msg.content.split(' ').slice(1)
-    const nickname = arggs.join(' ')
-    const embed = new EmbedBuilder()
-    .setColor('#00bd6d')
-    .setAuthor({
-        name: 'MineServ Rewards'
-    })
-    .setDescription('**Ваш аккаунт в Discord больше не связан с Minecraft ником "'+client.db.get(msg.author.id)+'"!**')
-    .setFooter({
-        text: conf.footerText
-    })
-    client.db.delete(msg.author.id)
-    return msg.channel.send({
-        embeds: [embed],
-        ephemeral: true
-    })
+    if(client.db.get(msg.author.id)){
+        const embed = new EmbedBuilder()
+        .setColor('#00bd6d')
+        .setAuthor({
+            name: 'MineServ Rewards'
+        })
+        .setDescription('**Ваш аккаунт в Discord больше не связан с Minecraft ником "'+client.db.get(msg.author.id)+'"!**')
+        .setFooter({
+            text: conf.footerText
+        })
+        client.db.delete(msg.author.id)
+        msg.channel.send({
+            embeds: [embed],
+        })
+    }
+    else{
+        const embed = new EmbedBuilder()
+        .setColor('#00bd6d')
+        .setAuthor({
+            name: 'MineServ Rewards'
+        })
+        .setDescription('**Ваш аккаунт не связан с каким-либо ником!**')
+        .setFooter({
+            text: conf.footerText
+        })
+        msg.channel.send({
+            embeds: [embed],
+        })
+    }
 }
 function profile(client,msg){
-    const arggs = msg.content.split(' ').slice(1)
-    const nickname = arggs.join(' ')
     const embed = new EmbedBuilder()
-    .setColor('#00bd6d')
-    .setAuthor({
+    embed.setColor('#00bd6d')
+    embed.setAuthor({
         name: 'MineServ Rewards'
     })
-    .setDescription('**Ваш профиль:**')
-    .setThumbnail(msg.user.avatarURL())
-    .setFooter({
+    embed.setDescription('**Ваш профиль:**')
+    if(client.dbc.get(client.db.get(msg.author.id)) && client.db.get(msg.author.id)){
+        embed.addFields([
+            { name: '**Ник в Игре**', value: String(client.db.get(msg.author.id)),inline: true},
+            { name: '**Баллы**', value: String(client.dbc.get(client.db.get(msg.author.id))),inline: true},
+        ])
+    }
+    else if(!client.db.get(msg.author.id)){
+        embed.addFields([
+            { name: '**Ник в Игре**', value: 'Ник не привязан',inline: true},
+            { name: '**Баллы**', value: '0',inline: true},
+        ])
+    }
+    else if(!client.dbc.get(client.db.get(msg.author.id))){
+        client.dbc.set(client.db.get(msg.author.id),0)
+        embed.addFields([
+            { name: '**Ник в Игре**', value: String(client.db.get(msg.author.id)),inline: true},
+            { name: '**Баллы**', value: '0',inline: true},
+        ])
+    }
+    embed.setThumbnail(msg.author.avatarURL())
+    embed.setFooter({
         text: conf.footerText
     })
-    return msg.channel.send({
+    msg.channel.send({
         embeds: [embed],
         ephemeral: true
     })
@@ -103,11 +143,11 @@ function help(client,msg){
     .setDescription('**Помощь по командам бота**')
     .setThumbnail(conf.thumbImage)
     .addFields([
-        { name: '**Префикс бота:**', value: '`'+prefix+'`'},
+        { name: '**Префикс бота:**', value: prefix},
         {name: '**Команды бота:**', value: ' '},
-        { name: '**link**', value: '`Привязать ник в Minecraft к аккаунту Discord.`',inline: true},
-        { name: '**unlink**', value: '`Отвязать ник в Minecraft от аккаунта Discord.`',inline: true},
-        { name: '**profile**', value: '`Посмотреть свой профиль.`',inline: true},
+        { name: '**link**', value: 'Привязать ник в Minecraft к аккаунту Discord.',inline: true},
+        { name: '**unlink**', value: 'Отвязать ник в Minecraft от аккаунта Discord.',inline: true},
+        { name: '**profile**', value: 'Посмотреть свой профиль.',inline: true},
     ])
     .setFooter({
         text: conf.footerText

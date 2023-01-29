@@ -9,9 +9,9 @@ var SHA256 = require("crypto-js/sha256")
 const { Client,GatewayIntentBits} = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.MessageContent,GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.GuildMembers,GatewayIntentBits.GuildIntegrations]})
 client.config = config
-client.db0 = require("qjson-db")
-const qjson = require('qjson-db')
-client.db = new qjson('./data/DB.json')
+const db = require('qjson-db')
+client.db = new db('./data/DB.json')
+client.dbc = new db('./data/DBCoin.json')
 //==================-SERVER-==================
 server.createServer((req,res)=>{
     let buf = ''
@@ -21,12 +21,12 @@ server.createServer((req,res)=>{
     req.on("end",()=>{
         var map = parse(buf)
         if(checkSign(map.project,map.username,map.timestamp,map.signature)==true){
-            main(map.project,map.username,map.timestamp,map.signature)
-            res.end('done')
+          reward(map.project,map.username,map.timestamp,map.signature)
+          res.end('done')
         }
         else{
-            res.statusCode = 500
-            res.end('error')
+          res.statusCode = 500
+          res.end('error')
         }
     })
 }).listen(config.WebServerPort)
@@ -60,5 +60,8 @@ client.on('messageCreate', (msg) => {
 )
 client.login(config.token)
 //===================-MAIN-===================
-function main(proj,user,time,sign){
+function reward(proj,user,time,sign){
+  client.dbc.set(user,config.reward)
+  time = new Date()
+  console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mВыдано \x1b[33m'+config.reward+' \x1b[36mбаллов игроку \x1b[33m"'+user+'".\x1b[0m')
 }
