@@ -1,5 +1,5 @@
 const conf = require('./config.json')
-const {MessageEmbed} = require('discord.js')
+const {EmbedBuilder} = require('discord.js')
 const prefix = conf.prefix
 //=====Link=====
 function link(msg){
@@ -17,7 +17,7 @@ function unlink(msg){
     }
 }
 function help(msg){
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
     .setColor('#00ffe1')
     .setAuthor({
         name: 'MineServ Rewards'
