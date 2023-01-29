@@ -20,7 +20,7 @@ server.createServer((req,res)=>{
     req.on("end",()=>{
         var map = parse(buf)
         if(checkSign(map.project,map.username,map.timestamp,map.signature)==true){
-          reward(map.project,map.username,map.timestamp,map.signature)
+          reward(map.username)
           res.end('done')
         }
         else{
@@ -59,7 +59,7 @@ client.on('messageCreate', (msg) => {
 )
 client.login(config.Discord.token)
 //===================-MAIN-===================
-function reward(proj,user,time,sign){
+function reward(user){
   client.dbc.set(user, Number(client.dbc.get(user)) + Number(config.Rewards.Reward))
   time = new Date()
   console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mВыдано \x1b[33m'+config.Rewards.Reward+' \x1b[36mбаллов игроку \x1b[33m"'+user+'".\x1b[0m')
