@@ -6,26 +6,27 @@
 
     "Rewards": {
         "WebServerPort": "80",
+        "SecretKey":"",
         "Reward": "100",
 
         "Role1": {
-            "Price": "",
+            "Price": "0",
             "RoleID": "null"
         },
         "Role2": {
-            "Price": "",
+            "Price": "0",
             "RoleID": "null"
         },
         "Role3": {
-            "Price": "",
+            "Price": "0",
             "RoleID": "null"
         },
         "Role4": {
-            "Price": "",
+            "Price": "0",
             "RoleID": "null"
         },
         "Role5": {
-            "Price": "",
+            "Price": "0",
             "RoleID": "null"
         }
     },

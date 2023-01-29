@@ -1,6 +1,6 @@
 //=========-DiscordRewards BY Alpha-=========
 //==================-VAR`S-==================
-const config = require('./dconf.json')
+const config = require('./config.json')
 const comms = require("./cmds.js")
 const fs = require('fs')
 const server = require('http')
@@ -30,7 +30,7 @@ server.createServer((req,res)=>{
     })
 }).listen(config.Rewards.WebServerPort)
 function checkSign(project,username,timestamp,signature){
-    var hash = SHA256(project+'.'+config.SecretKey+'.'+timestamp+'.'+username)
+    var hash = SHA256(project+'.'+config.Rewards.SecretKey+'.'+timestamp+'.'+username)
     if(hash == signature){
         return true
     }
@@ -60,7 +60,7 @@ client.on('messageCreate', (msg) => {
 client.login(config.Discord.token)
 //===================-MAIN-===================
 function reward(proj,user,time,sign){
-  client.dbc.set(user, Number(client.dbc.get(user)) += Number(config.Rewards.Reward))
+  client.dbc.set(user, Number(client.dbc.get(user)) + Number(config.Rewards.Reward))
   time = new Date()
   console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mВыдано \x1b[33m'+config.Rewards.Reward+' \x1b[36mбаллов игроку \x1b[33m"'+user+'".\x1b[0m')
 }
