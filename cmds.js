@@ -1,6 +1,5 @@
 const conf = require('./config.json')
-const {EmbedBuilder} = require('discord.js')
-const prefix = conf.prefix
+const {EmbedBuilder,ActionRowBuilder,ButtonBuilder} = require('discord.js')
 //=====Link=====
 function link(client,msg){
     const arggs = msg.content.split(' ').slice(1)
@@ -134,6 +133,8 @@ function profile(client,msg){
         ephemeral: true
     })
 }
+function buy(client,msg){
+}
 function help(client,msg){
     const embed = new EmbedBuilder()
     .setColor('#00bd6d')
@@ -143,10 +144,11 @@ function help(client,msg){
     .setDescription('**Помощь по командам бота**')
     .setThumbnail(conf.thumbImage)
     .addFields([
-        { name: '**Префикс бота:**', value: prefix},
+        { name: '**Префикс бота:**', value: conf.Discord.prefix},
         {name: '**Команды бота:**', value: ' '},
         { name: '**link**', value: 'Привязать ник в Minecraft к аккаунту Discord.',inline: true},
         { name: '**unlink**', value: 'Отвязать ник в Minecraft от аккаунта Discord.',inline: true},
+        { name: '**buy**', value: 'Купить роли за баллы.',inline: true},
         { name: '**profile**', value: 'Посмотреть свой профиль.',inline: true},
     ])
     .setFooter({
@@ -170,7 +172,12 @@ var comms_list = [
 {
     name: "profile",
     out: profile,
-    about: "опосмотреть свой профиль"
+    about: "посмотреть свой профиль"
+},
+{
+    name: "buy",
+    out: buy,
+    about: "купить роли за баллы"
 },
 {
     name: "help",

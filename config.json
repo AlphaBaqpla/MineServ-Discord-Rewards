@@ -1,8 +1,34 @@
 {
-    "token": "",
-    "prefix": "!",
-    "WebServerPort": "80",
-    "reward": "100",
+    "Discord":{
+        "token": "",
+        "prefix": "!"
+    },
+
+    "Rewards": {
+        "WebServerPort": "80",
+        "Reward": "100",
+
+        "Role1": {
+            "Price": "",
+            "RoleID": "null"
+        },
+        "Role2": {
+            "Price": "",
+            "RoleID": "null"
+        },
+        "Role3": {
+            "Price": "",
+            "RoleID": "null"
+        },
+        "Role4": {
+            "Price": "",
+            "RoleID": "null"
+        },
+        "Role5": {
+            "Price": "",
+            "RoleID": "null"
+        }
+    },
 
     "thumbImage": "https://media.discordapp.net/attachments/1057078822375264349/1066034808523866223/WoWqWgf5J4U.png",
     "footerText": "MineServ.top | Rewards"
