@@ -1,13 +1,13 @@
 //=========-DiscordRewards BY Alpha-=========
 //==================-VAR`S-==================
-const config = require('./config.json')
+const config = require('./dconf.json')
+const comms = require("./cmds.js")
 const fs = require('fs')
 const server = require('http')
 const { parse } = require('querystring')
 var SHA256 = require("crypto-js/sha256")
-const { Client } = require('discord.js');
-const comms = require("./cmds.js")
-const client = new Client({ intents: 32767 })
+const { Client,GatewayIntentBits} = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.MessageContent,GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.GuildMembers,GatewayIntentBits.GuildIntegrations]})
 client.config = config
 //==================-SERVER-==================
 server.createServer((req,res)=>{
@@ -47,7 +47,7 @@ client.on('messageCreate', (msg) => {
       var comm = msg.content.trim() + " "
       var comm_name = comm.slice(0, comm.indexOf(" "));
       for (comm_count in comms.comms) {
-        var comm2 = prefix + comms.comms[comm_count].name;
+        var comm2 = config.prefix + comms.comms[comm_count].name;
         if (comm2 == comm_name) {
           comms.comms[comm_count].out(client, msg);
         }

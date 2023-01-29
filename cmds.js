@@ -2,33 +2,111 @@ const conf = require('./config.json')
 const {EmbedBuilder} = require('discord.js')
 const prefix = conf.prefix
 //=====Link=====
-function link(msg){
+function link(client,msg){
     const arggs = msg.content.split(' ').slice(1)
     const nickname = arggs.join(' ')
-    if (!nickname) return msg.channel.send({content: '**Укажите ник!**',})
+    if (!nickname){
+        const embed = new EmbedBuilder()
+        .setColor('#00bd6d')
+        .setAuthor({
+            name: 'MineServ Rewards'
+        })
+        .setDescription('**Напишите ник!**')
+        .setFooter({
+            text: conf.footerText
+        })
+
+        return msg.channel.send({
+            embeds: [embed],
+            ephemeral: true
+        })
+    }
     else{
+        const embed = new EmbedBuilder()
+        .setColor('#00bd6d')
+        .setAuthor({
+            name: 'MineServ Rewards'
+        })
+        .setDescription('**Ваш аккаунт в Discord был успешно связан с Minecraft ником "'+nickname+'"!**')
+        .setFooter({
+            text: conf.footerText
+        })
+
+        return msg.channel.send({
+            embeds: [embed],
+            ephemeral: true
+        })
     }
 }
-function unlink(msg){
+function unlink(client,msg){
     const arggs = msg.content.split(' ').slice(1)
     const nickname = arggs.join(' ')
-    if (!nickname) return msg.channel.send({content: '**Укажите ник!**',})
+    if (!nickname){
+        const embed = new EmbedBuilder()
+        .setColor('#00bd6d')
+        .setAuthor({
+            name: 'MineServ Rewards'
+        })
+        .setDescription('**Напишите ник!**')
+        .setFooter({
+            text: conf.footerText
+        })
+
+        return msg.channel.send({
+            embeds: [embed],
+            ephemeral: true
+        })
+    }
     else{
+        const embed = new EmbedBuilder()
+        .setColor('#00bd6d')
+        .setAuthor({
+            name: 'MineServ Rewards'
+        })
+        .setDescription('**Ваш аккаунт в Discord был успешно связан с Minecraft ником "'+nickname+'"!**')
+        .setFooter({
+            text: conf.footerText
+        })
+
+        return msg.channel.send({
+            embeds: [embed],
+            ephemeral: true
+        })
     }
 }
-function help(msg){
+function profile(client,msg){
+    const arggs = msg.content.split(' ').slice(1)
+    const nickname = arggs.join(' ')
     const embed = new EmbedBuilder()
-    .setColor('#00ffe1')
+    .setColor('#00bd6d')
+    .setAuthor({
+        name: 'MineServ Rewards'
+    })
+    .setDescription('**Ваш профиль:**')
+    .setThumbnail(msg.user.avatarURL())
+    .setFooter({
+        text: conf.footerText
+    })
+    return msg.channel.send({
+        embeds: [embed],
+        ephemeral: true
+    })
+}
+function help(client,msg){
+    const embed = new EmbedBuilder()
+    .setColor('#00bd6d')
     .setAuthor({
         name: 'MineServ Rewards'
     })
     .setDescription('**Помощь по командам бота**')
     .setThumbnail(conf.thumbImage)
-    .addFields(
+    .addFields([
         { name: '**Префикс бота:**', value: '`'+prefix+'`'},
-        { name: '**link:**', value: '`Привязать ник в Minecraft к аккаунту Discord.`'},
-        { name: '**unlink:**', value: '`Отвязать ник в Minecraft от аккаунта Discord.`'},
-    )
+        {name: '**Команды бота:**', value: ' '},
+        { name: '**link**', value: '`Привязать ник в Minecraft к аккаунту Discord.`',inline: true},
+        { name: '**unlink**', value: '`Отвязать ник в Minecraft от аккаунта Discord.`',inline: true},
+        { name: '**profile**', value: '`Посмотреть свой профиль.`',inline: true},
+    ])
     .setFooter({
         text: conf.footerText
     })
@@ -38,19 +116,24 @@ function help(msg){
 }
 var comms_list = [
 {
-  name: "link",
-  out: link,
-  about: "привязать ник в Minecraft к аккаунту Discord"
+    name: "link",
+    out: link,
+    about: "привязать ник в Minecraft к аккаунту Discord"
 },
 {
-  name: "unlink",
-  out: unlink,
-  about: "отвязать ник в Minecraft от аккаунта Discord"
+    name: "unlink",
+    out: unlink,
+    about: "отвязать ник в Minecraft от аккаунта Discord"
 },
 {
-  name: "help",
-  out: help,
-  about: "помощь по командам бота"
+    name: "profile",
+    out: profile,
+    about: "опосмотреть свой профиль"
+},
+{
+    name: "help",
+    out: help,
+    about: "помощь по командам бота"
 }];
 
 module.exports.comms = comms_list
