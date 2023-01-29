@@ -26,12 +26,8 @@ function wlhelp(r, msg){
     .setThumbnail(conf.thumbImage)
     .addFields(
         { name: '**Префикс бота:**', value: '`'+prefix+'`'},
-        { name: '**wlhelp:**', value: '`Информация о командах бота.`'},
-        { name: '**wlcmd:**', value: '`Выполнить на сервере команду.`'},
-        { name: '**wladd:**', value: '`Добавить игрока в ВЛ.`'},
-        { name: '**wlrem:**', value: '`Удалить игрока из ВЛ.`'},
-        { name: '**wlban:**', value: '`Забанить игрока на игровом сервере.`'},
-        { name: '**wlunban:**', value: '`Разбанить игрока на игровом сервере.`'},
+        { name: '**link:**', value: '`Привязать ник в Minecraft к аккаунту Discord.`'},
+        { name: '**unlink:**', value: '`Отвязать ник в Minecraft от аккаунта Discord.`'},
     )
     .setFooter({
         text: conf.footerText
