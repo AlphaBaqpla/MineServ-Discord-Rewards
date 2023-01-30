@@ -20,6 +20,9 @@ server.createServer((req,res)=>{
     req.on("end",()=>{
         var map = parse(buf)
         if(checkSign(map.project,map.username,map.timestamp,map.signature)==true){
+          if(!client.dbc.get(map.username)){
+            client.dbc.set(map.username,0)
+          }
           reward(map.username)
           res.end('done')
         }
